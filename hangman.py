@@ -43,6 +43,20 @@ class Game:
         self.outLabel = tkinter.Label(self.win, font="Arial 20 bold")
         self.outLabel.grid(row=1, column=0)
 
+
+        hngm =  [
+            self.can.create_line(70, 300, 100, 250),
+            self.can.create_line(130, 300, 100, 250),
+            self.can.create_line(100, 250, 100, 80),
+            self.can.create_line(100, 120, 140, 80),
+            self.can.create_line(100, 80, 220, 80),
+            self.can.create_line(220, 80, 220, 110),
+            self.can.create_oval(205, 110, 235, 140),
+            self.can.create_line(220, 140, 220, 200),
+            self.can.create_line(220, 200, 190, 230),
+            self.can.create_line(220, 200, 250, 230)
+        ]
+
         self.choose_word()
 
     def choose_word(self):
@@ -53,22 +67,30 @@ class Game:
                 self.letters.append(" ")
             else:
                 self.letters.append("_")
-        self.outLabel["text"] = ''.join(self.letters)
+        self.outLabel["text"] = ' '.join(self.letters)
 
     def replace_letters(self, event):
         #replace correct letter
         uc = self.input.get()[0]
         ucl = uc.lower()
         cl = self.choice.lower()
-        for i in [r.start() for r in re.finditer(ucl, cl)]:
+        indexl = [r.start() for r in re.finditer(ucl, cl)]
+        if len(indexl) == 0:
+            self.update_hangman()
+        for i in indexl:
             self.letters[i] = self.choice[i]
-        self.outLabel["text"] = ''.join(self.letters)
+        self.outLabel["text"] = ' '.join(self.letters)
+
+    def update_hangman(self):
+        pass
 
     def launch(self):
-        self.win.mainloop()
-
-        while(self.win.state == 'normal'):
-            pass
+        while(True):
+            try:
+                self.win.update_idletasks()
+                self.win.update()
+            except:
+                break
 
 game = Game()
 game.launch()
