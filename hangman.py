@@ -46,7 +46,7 @@ class Game:
         self.choose_word()
 
     def choose_word(self):
-        self.choice = random.choice(list(self.data.keys()))
+        self.choice = random.choice(list(self.data["de-en"].keys()))
         print(self.choice)
         for l in self.choice:
             if l == ' ':
@@ -56,11 +56,12 @@ class Game:
         self.outLabel["text"] = ''.join(self.letters)
 
     def replace_letters(self, event):
-        #replace correct letters
-        uc = self.input.get()
-        for c in uc:
-            for i in [r.start() for r in re.finditer(c, self.choice)]:
-                self.letters[i] = c
+        #replace correct letter
+        uc = self.input.get()[0]
+        ucl = uc.lower()
+        cl = self.choice.lower()
+        for i in [r.start() for r in re.finditer(ucl, cl)]:
+            self.letters[i] = self.choice[i]
         self.outLabel["text"] = ''.join(self.letters)
 
     def launch(self):
