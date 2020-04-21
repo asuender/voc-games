@@ -11,6 +11,7 @@ import os
 os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = "hide"
 import pygame
 import random,json
+from time import time
 from commoncodes import CommonCode
 print("handling arguments...")
 if len(argv)<2:
@@ -27,19 +28,24 @@ WHITE=(255,255,255)
 BLACK=(0,0,0)
 KEYS={}
 STOP=False
+END=False
 WORD=""
 TRANSLATION=""
 INDEX=0
 PREVINDEX=0
 SCORE=0
 PREVSCORE=0
+endt=time()+30
 print("Initializing Fonts...")
 normfont=pygame.font.SysFont("Arial",10)
 bigfont=pygame.font.SysFont("Arial",13,bold=True)
+hugefont=pygame.font.SysFont("Arial",42,bold=True)
 print("Initializing Surfaces")
 WORDSURF=bigfont.render("",True,BLACK)
 TRANSSURF=bigfont.render("",True,WHITE)
+ENDMSG=hugefont.render("END",True,WHITE)
 SCORESURF=normfont.render("SCORE: 0",True,WHITE)
+TIMESURF=normfont.render("TIME: 30",True,WHITE)
 WORDHISTORY=pygame.Surface((WIDTH-10,HEIGHT-5-HEIGHT//20-SCORESURF.get_height()),pygame.SRCALPHA)
 print("Loading vocabulary...")
 if os.path.exists(argv[1]):
@@ -60,6 +66,14 @@ def event_handler():
 			KEYS[event.key]=False
 		elif event.type==pygame.QUIT:
 			STOP=True
+
+def timer():
+	global TIMESURF,END
+	curtime=endt-time()
+	if curtime<=0:
+		END=True
+	else:
+		TIMESURF=normfont.render("TIME: %02i"%curtime,True,WHITE)
 
 def check_key(key):
 	if key in KEYS.keys():
@@ -110,17 +124,21 @@ def draw():
 	screen.blit(WORDHISTORY,(5,normfont.get_height()))
 	screen.blit(WORDSURF,(10,HEIGHT-5-HEIGHT//40-WORDSURF.get_height()//2))
 	screen.blit(SCORESURF,(0,0))
+	screen.blit(TIMESURF,(0,SCORESURF.get_height()))
 	screen.blit(TRANSSURF,(WIDTH-TRANSSURF.get_width(),0))
+	if END:
+		screen.blit(ENDMSG,(WIDTH//2-ENDMSG.get_width()//2,HEIGHT//2-ENDMSG.get_height()//2))
 	pygame.display.flip()
 
 def mainloop():
 	choose_word()
 	while not STOP:
 		event_handler()
+		timer()
 		draw()
-		for key in pygame_input():
-			kn=chr(key)
-			check_letter(kn)
+		if not END:
+			for key in pygame_input():
+				check_letter(chr(key))
 
 print("\033[32meverything good\033[0m")
 print("Vocabulary:")
