@@ -6,7 +6,7 @@ from commoncodes import CommonCode
 
 help_msg = '''A simple GUI-based hangman game for learning the english vocabulary.
             
-Usage: python3 hangman.py file mode [--help | -h]
+Usage: python3 hangman.py file mode
 
 Command line arguments:
     file    That argument should be replaced with your json file where the 
@@ -18,14 +18,13 @@ class Game:
         ''' Initialize game '''
         argv = sys.argv
         argc = len(argv)
+        if any(opt in argv for opt in ("--help", "-h")): 
+            print(help_msg)
+            exit(0)
+        else:
+            raise CommonCode(5, argv[3])
         if argc < 3:
             raise CommonCode(3,argv[0],", ".join(["file", "mode"][argc-1:]))
-        elif argc == 4:
-            if any(opt in argv for opt in ("--help", "-h")): 
-              print(help_msg)
-              exit(0)
-            else:
-              raise CommonCode(5, argv[3])
         elif argc > 4:
             raise CommonCode(4, '', str(argc-4))
         if not os.path.exists(argv[1]):
@@ -142,6 +141,7 @@ class Game:
         self.input.delete(0, 'end')
 
     def update_hangman(self):
+        ''' update canvas when user guesses a wrong letter '''
         self.hngmi+=1
         try:
             if self.can.type(self.hngml[self.hngmi]) == 'oval':
@@ -152,9 +152,11 @@ class Game:
             self.choose_word()
 
     def change_order(self):
+        ''' change from randomized to ordered or reveresed '''
         self.order = self.rValue.get()
 
     def launch(self):
+        ''' main loop of the game '''
         while(True):
             try:
                 self.win.update_idletasks()
