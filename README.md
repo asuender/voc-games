@@ -10,59 +10,97 @@ We built a classic hangman game with Python. The user has to guess simple englis
 
 ## How to play it
 
-##  ~~If you don't have Python installed~~
+### ~~If you don't have Python installed~~ ~coming~ ~soon~
 
-~~1. Visit [releases](https://github.com/asuender/voc-games/releases), select *1.0* and download the fitting excecutable for your system.~~
+1. ~~Visit [releases](https://github.com/asuender/voc-games/releases), select *1.0* and download the fitting release for your system.~~
 
-~~2.  * On **Windows**, doubleclick the ```hangman_win.exe``` to run the game.
-    * **Linux**: Use the terminal to navigate to the folder above and   type:~~ ~~```./hangman_linux```~~
+2. ~~**Windows:** Doubleclick the ```hangman_win.exe``` to run the game.
+**Linux**: Use the terminal to navigate to the folder above and   type:  ```./hangman_linux```~~
 
-## If you prefer using Python
+### If you prefer using Python
 
-Install Python here: [Official Python Website](https://www.python.org/downloads/)
+Install Python from the [Official Python Website](https://www.python.org/downloads/) or
+use a command instead (for this, open a terminal):
 
----
-**ATTENTION**
+**Windows:** use the link above (make sure to download a python3.x release.)
 
-If you don't have *CommonCodes* installed, please do it by typing the following command in a terminal:
+**Unix:** 
+Python 3 should be pre-installed, if not, follow the instructions below:
 
-Linux:
+To open a terminal, press *CTRL+ALT+T*
 
-```shell
-pip3 install commoncodes
-```
-
-Windows (cmd):
+Then, enter the command corresponding to your distro:
 
 ```shell
-pip install commoncodes
+$ubuntu sudo apt install python3 python3-pip
+$debian sudo apt-get install python3 python3-pip
+$arch pacman -S python3 python3-pip
+```
+
+**Mac OS X:**
+
+To open a terminal, press *CMD+SPACE* type 'terminal' and press ENTER
+
+```shell
+brew install python3
 ```
 
 ---
 
-1. Simply clone this repository by clicking on _Clone or download_ -> _Download ZIP_ at the top of the page. You can either use the following link:
+### DEPENDENCIES
+
+Dependencies include: *commoncodes, pygame*
+**Unix:**
+
+```shell
+python3 -m pip install commoncodes pygame
+```
+
+**Windows cmd:**
+
+```shell
+python -m pip install commoncodes pygame
+```
+
+---
+#### After that...
+
+1. Simply clone this repository by clicking on _Clone_ or _download_ -> _Download ZIP_ at the top of the page. You can also use the following link:
 [Download](https://github.com/asuender/voc-games/archive/master.zip)
 
 2. After downloading, extract your archive.
 
-3. The root  of this repository should contain the file ```hangman.py```.
-    * **Windows**: select that file, rightclick and *Open with IDLE*. After that, you can use press F5 to run the script.
-    * **Linux/Mac**: Use the terminal to navigate to your exctracted archive and type:
+3. The root  of this repository should contain `hangman.py` and `speedtranslate.py`.
+    * **Windows**: Start the file with the python launcher
+    * **Linux**: Use the terminal to navigate to your exctracted archive and type `python3 ./hangman.py -h` or `python3 ./speedtranslate.py -h` 
+    * **Mac**: Open Finder and navigate to the folder you unpacked before. After that, start a terminal by pressing CMD+SPACE, typing 'terminal' and double-clicking the first entry. Go back to Finder and drag your `voc-games` folder into the terminal. To start the game, type `python3 hangman.py -h` or `python3 speedtranslate.py -h`
 
-    ```shell
-    python3 hangman.py <file>
-    ```
 
-    Replace ```<file>``` with the path of a valid vocabulary json file (e.g. *example.json*)
+## How to use custom vocabulary sheets
 
-## Speedtranslate
+Of course you can make your own vocabulary sheet and use it in both of the games.
 
-Besides hangman we also made a new game named _speedtranslate_. It's very similiar to hangman. The goal is to translate a number of voc items from/to english in a specific time, e.g.
+1. Create a new file named `my_sheet.json`. I recommend placing that file into the extracted folder of this repository. If you want to use a different name, simply replace `my_sheet`. Don't forget ```.json``` at the end.
 
-```in Betracht ziehen -> consider```
+2. Open the file you just created in a text editor of your choice. Assuming you want to add two vocabulary items ('table' and 'chair'), write the following text into your file:
 
-```//todo```
+```json
+{
+    "de-en":
+        {
+            "German word": "English word"
+        },
 
-# How to use custom vocabulary
+    "en-de":
+        {
+            "English word": "German word"
+        }
+}
+```
 
-```//todo```
+What you see here is a basic JSON file. It is used to store data in a simple, readable structure. Each item is a pair of ```key: value``` (e.g. the ```"Sessel": "chair"```). Multiple items are separated with a comma ```,``` followed by a newline.
+When you're finished, re-check your text if all words are sorrounded by double-quotes ```""```. Neither of ```de-en``` and ```en-de``` should be empty.
+
+3. Finally, save your file. Optionally, you can copy your code and paste it in a JSON Validator (e.g. [this one](https://jsonformatter.curiousconcept.com/)) to make sure your data is valid. 
+
+4. Run your code. See *If you prefer using python* and replace ```file```with your file name, here ```my_voc.json```. 
