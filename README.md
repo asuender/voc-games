@@ -6,16 +6,22 @@
 
 We built a classic hangman game with Python. The user has to guess simple english vocabulary items. You also can show the german translation as a help. Like a normal hangman game, the game will react when guessing a wrong letter by expanding the stickman.
 
-```todo```
+## Speedtranslate
 
-## How to play it
+Speedtranslate is similiar to Hangman. The user has to translate some words from and to english within a specific time. Try as fast as you can!
+
+## How to play them
 
 ### ~~If you don't have Python installed~~ ~coming~ ~soon~
 
-1. ~~Visit [releases](https://github.com/asuender/voc-games/releases), select *1.0* and download the fitting release for your system.~~
+1. ~~Visit [releases](https://github.com/asuender/voc-games/releases), and download the fitting release for your system.~~
 
-2. ~~**Windows:** Doubleclick the ```hangman_win.exe``` to run the game.
-**Linux**: Use the terminal to navigate to the folder above and   type:  ```./hangman_linux```~~
+2. ~~**Windows:** Doubleclick the 
+```hangman_win.exe``` 
+or ```speedtranslate_win.exe``` to run the game.
+**Linux**: Use the terminal to navigate to the folder above and   type:  
+```./hangman_linux``` 
+or ```./speedtranslate_linux```~~
 
 ### If you prefer using Python
 
