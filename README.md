@@ -109,4 +109,4 @@ When you're finished, re-check your text if all words are sorrounded by double-q
 
 3. Finally, save your file. Optionally, you can copy your code and paste it in a JSON Validator (e.g. [this one](https://jsonformatter.curiousconcept.com/)) to make sure your data is valid. 
 
-4. Run your code. See *If you prefer using python* and replace ```file```with your file name, here ```my_voc.json```. 
+4. Run your code. See *If you prefer using python* and replace ```file```with your file name, here ```my_sheet.json```. 
