@@ -1,10 +1,22 @@
 #!/usr/bin/python3
 #note that this isn't representative of Riedler's average quality of code.
 #this is literal shit code-wise.
+import sys
+argv=sys.argv
+if "-h" in argv or "--help" in argv:
+	print("Usage: python3 speedtranslate.py file\nThis game uses the CommonCodes 1.0.0 Standard for error messages.\nFor further information see here: https://mfederczuk.github.io/commoncodes/v2.html")
+	exit(0)
 print("Importing libraries...")
-import os,sys
+import os
+os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = "hide"
 import pygame
 import random,json
+from commoncodes import CommonCode
+print("handling arguments...")
+if len(argv)<2:
+	raise CommonCode(3,"speedtranslate","file")
+elif len(argv)>2:
+	raise CommonCode(4,"speedtranslate",str(len(argv)-2))
 print("Initializing pygame...")
 pygame.init()
 screen=pygame.display.set_mode((720,480),pygame.HWSURFACE)
@@ -30,8 +42,14 @@ TRANSSURF=bigfont.render("",True,WHITE)
 SCORESURF=normfont.render("SCORE: 0",True,WHITE)
 WORDHISTORY=pygame.Surface((WIDTH-10,HEIGHT-5-HEIGHT//20-SCORESURF.get_height()),pygame.SRCALPHA)
 print("Loading vocabulary...")
-with open("./test.json") as f:
-	VOCABS=json.load(f)
+if os.path.exists(argv[1]):
+	if os.path.isfile(argv[1]):
+		with open(argv[1],"r") as f:
+			VOCABS=json.load(f)
+	else:
+		raise CommonCode(25,argv[1],"file")
+else:
+	raise CommonCode(24,argv[1],"file or directory")
 print("Defining functions...")
 def event_handler():
 	global STOP, KEYS
