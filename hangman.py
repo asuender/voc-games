@@ -18,11 +18,12 @@ class Game:
         ''' Initialize game '''
         argv = sys.argv
         argc = len(argv)
-        if any(opt in argv for opt in ("--help", "-h")): 
-            print(help_msg)
-            exit(0)
-        else:
-            raise CommonCode(5, argv[3])
+        if argc == 4:
+            if any(opt in argv for opt in ("--help", "-h")): 
+              print(help_msg)
+              exit(0)
+            else:
+              raise CommonCode(5, argv[3])
         if argc < 3:
             raise CommonCode(3,argv[0],", ".join(["file", "mode"][argc-1:]))
         elif argc > 4:
